@@ -361,6 +361,11 @@ namespace Ailon.WP.Utils
         public string CanonicalModel { get; set; }
         public string Comments { get; set; }
         public bool IsResolved { get; set; }
+
+        public string FullCanonicalName
+        {
+            get { return CanonicalManufacturer + " " + CanonicalModel; }
+        }
     }
 
 }
