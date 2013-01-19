@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2013 by Alan Mendelevich
+ * 
+ * Licensed under MIT license.
+ * 
+ * See license.txt for details.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
