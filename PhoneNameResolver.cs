@@ -17,6 +17,8 @@ namespace Ailon.WP.Utils
                     return ResolveNokia(manufacturer, model);
                 case "HTC":
                     return ResolveHtc(manufacturer, model);
+                case "SAMSUNG":
+                    return ResolveSamsung(manufacturer, model);
                 default:
                     return new CanonicalPhoneName()
                     {
@@ -28,6 +30,43 @@ namespace Ailon.WP.Utils
                     };
 
             }
+        }
+
+        private static CanonicalPhoneName ResolveSamsung(string manufacturer, string model)
+        {
+            var modelNormalized = model.Trim().ToUpper();
+
+            var result = new CanonicalPhoneName()
+            {
+                ReportedManufacturer = manufacturer,
+                ReportedModel = model,
+                CanonicalManufacturer = "SAMSUNG",
+                CanonicalModel = model,
+                IsResolved = false
+            };
+
+
+            var lookupValue = modelNormalized;
+
+            if (lookupValue.StartsWith("GT-S7530"))
+            {
+                lookupValue = "GT-S7530";
+            }
+
+            if (lookupValue.StartsWith("SGH-I917"))
+            {
+                lookupValue = "SGH-I917";
+            }
+
+            if (samsungLookupTable.ContainsKey(lookupValue))
+            {
+                var modelMetadata = samsungLookupTable[lookupValue];
+                result.CanonicalModel = modelMetadata.CanonicalModel;
+                result.Comments = modelMetadata.Comments;
+                result.IsResolved = true;
+            }
+
+            return result;
         }
 
         private static CanonicalPhoneName ResolveHtc(string manufacturer, string model)
@@ -96,6 +135,39 @@ namespace Ailon.WP.Utils
 
             return result;
         }
+
+        private static Dictionary<string, CanonicalPhoneName> samsungLookupTable = new Dictionary<string, CanonicalPhoneName>()
+        {
+            // OMNIA W
+            { "GT-I8350", new CanonicalPhoneName() { CanonicalModel = "Omnia W" } },
+            { "GT-I8350T", new CanonicalPhoneName() { CanonicalModel = "Omnia W" } },
+            { "OMNIA W", new CanonicalPhoneName() { CanonicalModel = "Omnia W" } },
+
+            // OMNIA 7
+            { "GT-I8700", new CanonicalPhoneName() { CanonicalModel = "Omnia 7" } },
+            { "OMNIA7", new CanonicalPhoneName() { CanonicalModel = "Omnia 7" } },
+
+            // OMNIA M
+            { "GT-S7530", new CanonicalPhoneName() { CanonicalModel = "Omnia 7" } },
+
+            // Focus
+            { "I917", new CanonicalPhoneName() { CanonicalModel = "Focus" } },
+            { "SGH-I917", new CanonicalPhoneName() { CanonicalModel = "Focus" } },
+
+            // Focus 2
+            { "SGH-I667", new CanonicalPhoneName() { CanonicalModel = "Focus 2" } },
+
+            // Focus Flash
+            { "SGH-I677", new CanonicalPhoneName() { CanonicalModel = "Focus Flash" } },
+
+            // Focus S
+            { "HADEN", new CanonicalPhoneName() { CanonicalModel = "Focus S" } },
+            { "SGH-I937", new CanonicalPhoneName() { CanonicalModel = "Focus S" } },
+
+            // Ativ S
+            { "GT-I8750", new CanonicalPhoneName() { CanonicalModel = "Ativ S" } },
+            { "SGH-T899M", new CanonicalPhoneName() { CanonicalModel = "Ativ S" } },
+        };
 
         private static Dictionary<string, CanonicalPhoneName> htcLookupTable = new Dictionary<string, CanonicalPhoneName>()
         {
