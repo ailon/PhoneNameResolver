@@ -19,6 +19,8 @@ namespace Ailon.WP.Utils
                     return ResolveHtc(manufacturer, model);
                 case "SAMSUNG":
                     return ResolveSamsung(manufacturer, model);
+                case "LG":
+                    return ResolveLg(manufacturer, model);
                 default:
                     return new CanonicalPhoneName()
                     {
@@ -30,6 +32,43 @@ namespace Ailon.WP.Utils
                     };
 
             }
+        }
+
+        private static CanonicalPhoneName ResolveLg(string manufacturer, string model)
+        {
+            var modelNormalized = model.Trim().ToUpper();
+
+            var result = new CanonicalPhoneName()
+            {
+                ReportedManufacturer = manufacturer,
+                ReportedModel = model,
+                CanonicalManufacturer = "LG",
+                CanonicalModel = model,
+                IsResolved = false
+            };
+
+
+            var lookupValue = modelNormalized;
+
+            if (lookupValue.StartsWith("LG-C900"))
+            {
+                lookupValue = "LG-C900";
+            }
+
+            if (lookupValue.StartsWith("LG-E900"))
+            {
+                lookupValue = "LG-E900";
+            }
+
+            if (lgLookupTable.ContainsKey(lookupValue))
+            {
+                var modelMetadata = lgLookupTable[lookupValue];
+                result.CanonicalModel = modelMetadata.CanonicalModel;
+                result.Comments = modelMetadata.Comments;
+                result.IsResolved = true;
+            }
+
+            return result;
         }
 
         private static CanonicalPhoneName ResolveSamsung(string manufacturer, string model)
@@ -135,6 +174,18 @@ namespace Ailon.WP.Utils
 
             return result;
         }
+
+        private static Dictionary<string, CanonicalPhoneName> lgLookupTable = new Dictionary<string, CanonicalPhoneName>()
+        {
+            // Optimus 7Q/Quantum
+            { "LG-C900", new CanonicalPhoneName() { CanonicalModel = "Optimus 7Q/Quantum" } },
+
+            // Optimus 7
+            { "LG-E900", new CanonicalPhoneName() { CanonicalModel = "Optimus 7" } },
+
+            // Jil Sander
+            { "LG-E906", new CanonicalPhoneName() { CanonicalModel = "Jil Sander" } },
+        };
 
         private static Dictionary<string, CanonicalPhoneName> samsungLookupTable = new Dictionary<string, CanonicalPhoneName>()
         {
