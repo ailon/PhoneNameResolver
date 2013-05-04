@@ -363,6 +363,7 @@ namespace Ailon.WP.Utils
             { "LUMIA 920", new CanonicalPhoneName() { CanonicalModel = "Lumia 920" } },
             // Lumia 520
             { "RM-914", new CanonicalPhoneName() { CanonicalModel = "Lumia 520" } },
+            { "RM-915", new CanonicalPhoneName() { CanonicalModel = "Lumia 520" } },
             // Lumia 521?
             { "RM-917", new CanonicalPhoneName() { CanonicalModel = "Lumia 521", Comments="T-Mobile 520" } },
             // Lumia 720
