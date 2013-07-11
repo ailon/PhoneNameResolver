@@ -375,6 +375,7 @@ namespace Ailon.WP.Utils
             // Lumia 925
             { "RM-892", new CanonicalPhoneName() { CanonicalModel = "Lumia 925" } },
             { "RM-893", new CanonicalPhoneName() { CanonicalModel = "Lumia 925" } },
+            { "RM-910", new CanonicalPhoneName() { CanonicalModel = "Lumia 925", Comments="China 925T" } },
         };
     }
 
