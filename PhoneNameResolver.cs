@@ -301,6 +301,9 @@ namespace Ailon.WP.Utils
             { "PM23300", new CanonicalPhoneName() { CanonicalModel = "8X", Comments="AT&T" } },
             { "WINDOWS PHONE 8X BY HTC", new CanonicalPhoneName() { CanonicalModel = "8X" } },
 
+            // 8XT
+            { "HTCPO881 SPRINT", new CanonicalPhoneName() { CanonicalModel = "8XT", Comments="Sprint" } },
+
             // Titan
             { "ETERNITY", new CanonicalPhoneName() { CanonicalModel = "Titan", Comments = "China" } },
             { "PI39100", new CanonicalPhoneName() { CanonicalModel = "Titan", Comments = "AT&T" } },
