@@ -234,6 +234,7 @@ namespace Ailon.WP.Utils
 
             // ATIV Odyssey
             { "SCH-I930", new CanonicalPhoneName() { CanonicalModel = "ATIV Odyssey" } },
+            { "SCH-R860U", new CanonicalPhoneName() { CanonicalModel = "ATIV Odyssey", Comments="US Cellular" } },
         };
 
         private static Dictionary<string, CanonicalPhoneName> htcLookupTable = new Dictionary<string, CanonicalPhoneName>()
@@ -383,6 +384,10 @@ namespace Ailon.WP.Utils
             { "RM-875", new CanonicalPhoneName() { CanonicalModel = "Lumia 1020" } },
             { "RM-876", new CanonicalPhoneName() { CanonicalModel = "Lumia 1020" } },
             { "RM-877", new CanonicalPhoneName() { CanonicalModel = "Lumia 1020" } },
+            // Lumia 625
+            { "RM-941", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
+            { "RM-942", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
+            { "RM-943", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
         };
     }
 
