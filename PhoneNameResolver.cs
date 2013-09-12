@@ -6,13 +6,17 @@
  * See license.txt for details.
 */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Ailon.WP.Utils
 {
+    public enum ScreenResolution
+    {
+        WVGA,
+        WXGA,
+        _720p
+    }
+
     public static class PhoneNameResolver
     {
         public static CanonicalPhoneName Resolve(string manufacturer, string model)
@@ -30,7 +34,7 @@ namespace Ailon.WP.Utils
                 case "LG":
                     return ResolveLg(manufacturer, model);
                 default:
-                    return new CanonicalPhoneName()
+                    return new CanonicalPhoneName
                     {
                         ReportedManufacturer = manufacturer,
                         ReportedModel = model,
@@ -42,11 +46,25 @@ namespace Ailon.WP.Utils
             }
         }
 
+        private static void Lookup(Dictionary<string, CanonicalPhoneName> lookupTable, string lookupValue, CanonicalPhoneName result)
+        {
+            CanonicalPhoneName modelMetadata;
+            if (lookupTable.TryGetValue(lookupValue, out modelMetadata))
+            {
+                result.CanonicalModel = modelMetadata.CanonicalModel;
+                result.Comments = modelMetadata.Comments;
+                result.ScreenSize = modelMetadata.ScreenSize;
+                result.OSVersion = modelMetadata.OSVersion;
+                result.ScreenResolution = modelMetadata.ScreenResolution;
+                result.IsResolved = true;
+            }
+        }
+
         private static CanonicalPhoneName ResolveLg(string manufacturer, string model)
         {
             var modelNormalized = model.Trim().ToUpper();
 
-            var result = new CanonicalPhoneName()
+            var result = new CanonicalPhoneName
             {
                 ReportedManufacturer = manufacturer,
                 ReportedModel = model,
@@ -68,13 +86,7 @@ namespace Ailon.WP.Utils
                 lookupValue = "LG-E900";
             }
 
-            if (lgLookupTable.ContainsKey(lookupValue))
-            {
-                var modelMetadata = lgLookupTable[lookupValue];
-                result.CanonicalModel = modelMetadata.CanonicalModel;
-                result.Comments = modelMetadata.Comments;
-                result.IsResolved = true;
-            }
+            Lookup(lgLookupTable, lookupValue, result);
 
             return result;
         }
@@ -83,7 +95,7 @@ namespace Ailon.WP.Utils
         {
             var modelNormalized = model.Trim().ToUpper();
 
-            var result = new CanonicalPhoneName()
+            var result = new CanonicalPhoneName
             {
                 ReportedManufacturer = manufacturer,
                 ReportedModel = model,
@@ -105,13 +117,7 @@ namespace Ailon.WP.Utils
                 lookupValue = "SGH-I917";
             }
 
-            if (samsungLookupTable.ContainsKey(lookupValue))
-            {
-                var modelMetadata = samsungLookupTable[lookupValue];
-                result.CanonicalModel = modelMetadata.CanonicalModel;
-                result.Comments = modelMetadata.Comments;
-                result.IsResolved = true;
-            }
+            Lookup(samsungLookupTable, lookupValue, result);
 
             return result;
         }
@@ -120,7 +126,7 @@ namespace Ailon.WP.Utils
         {
             var modelNormalized = model.Trim().ToUpper();
 
-            var result = new CanonicalPhoneName()
+            var result = new CanonicalPhoneName
             {
                 ReportedManufacturer = manufacturer,
                 ReportedModel = model,
@@ -147,13 +153,7 @@ namespace Ailon.WP.Utils
                 lookupValue = "C625";
             }
 
-            if (htcLookupTable.ContainsKey(lookupValue))
-            {
-                var modelMetadata = htcLookupTable[lookupValue];
-                result.CanonicalModel = modelMetadata.CanonicalModel;
-                result.Comments = modelMetadata.Comments;
-                result.IsResolved = true;
-            }
+            Lookup(htcLookupTable, lookupValue, result);
 
             return result;
         }
@@ -162,7 +162,7 @@ namespace Ailon.WP.Utils
         {
             var modelNormalized = model.Trim().ToUpper();
 
-            var result = new CanonicalPhoneName()
+            var result = new CanonicalPhoneName
             {
                 ReportedManufacturer = manufacturer,
                 ReportedModel = model,
@@ -177,13 +177,7 @@ namespace Ailon.WP.Utils
                 lookupValue = modelNormalized.Substring(0, 6);
             }
 
-            if (nokiaLookupTable.ContainsKey(lookupValue))
-            {
-                var modelMetadata = nokiaLookupTable[lookupValue];
-                    result.CanonicalModel = modelMetadata.CanonicalModel;
-                    result.Comments = modelMetadata.Comments;
-                    result.IsResolved = true;
-            }
+            Lookup(nokiaLookupTable, lookupValue, result);
 
             return result;
         }
@@ -191,203 +185,203 @@ namespace Ailon.WP.Utils
         private static Dictionary<string, CanonicalPhoneName> lgLookupTable = new Dictionary<string, CanonicalPhoneName>()
         {
             // Optimus 7Q/Quantum
-            { "LG-C900", new CanonicalPhoneName() { CanonicalModel = "Optimus 7Q/Quantum" } },
+            { "LG-C900", new CanonicalPhoneName(7) { CanonicalModel = "Optimus 7Q/Quantum", ScreenSize = 3.5 } },
 
             // Optimus 7
-            { "LG-E900", new CanonicalPhoneName() { CanonicalModel = "Optimus 7" } },
+            { "LG-E900", new CanonicalPhoneName(7) { CanonicalModel = "Optimus 7", ScreenSize = 3.8} },
 
             // Jil Sander
-            { "LG-E906", new CanonicalPhoneName() { CanonicalModel = "Jil Sander" } },
+            { "LG-E906", new CanonicalPhoneName(7) { CanonicalModel = "Jil Sander", ScreenSize = 3.8} },
         };
 
         private static Dictionary<string, CanonicalPhoneName> samsungLookupTable = new Dictionary<string, CanonicalPhoneName>()
         {
             // OMNIA W
-            { "GT-I8350", new CanonicalPhoneName() { CanonicalModel = "Omnia W" } },
-            { "GT-I8350T", new CanonicalPhoneName() { CanonicalModel = "Omnia W" } },
-            { "OMNIA W", new CanonicalPhoneName() { CanonicalModel = "Omnia W" } },
+            { "GT-I8350", new CanonicalPhoneName(7) { CanonicalModel = "Omnia W", ScreenSize = 3.7} },
+            { "GT-I8350T", new CanonicalPhoneName(7) { CanonicalModel = "Omnia W", ScreenSize = 3.7 } },
+            { "OMNIA W", new CanonicalPhoneName(7) { CanonicalModel = "Omnia W", ScreenSize = 3.7 } },
 
             // OMNIA 7
-            { "GT-I8700", new CanonicalPhoneName() { CanonicalModel = "Omnia 7" } },
-            { "OMNIA7", new CanonicalPhoneName() { CanonicalModel = "Omnia 7" } },
+            { "GT-I8700", new CanonicalPhoneName(7) { CanonicalModel = "Omnia 7", ScreenSize = 4 } },
+            { "OMNIA7", new CanonicalPhoneName(7) { CanonicalModel = "Omnia 7", ScreenSize = 4 } },
 
             // OMNIA M
-            { "GT-S7530", new CanonicalPhoneName() { CanonicalModel = "Omnia 7" } },
+            { "GT-S7530", new CanonicalPhoneName(7) { CanonicalModel = "Omnia 7", ScreenSize = 4 } },
 
             // Focus
-            { "I917", new CanonicalPhoneName() { CanonicalModel = "Focus" } },
-            { "SGH-I917", new CanonicalPhoneName() { CanonicalModel = "Focus" } },
+            { "I917", new CanonicalPhoneName(7) { CanonicalModel = "Focus", ScreenSize = 4 } },
+            { "SGH-I917", new CanonicalPhoneName(7) { CanonicalModel = "Focus", ScreenSize = 4 } },
 
             // Focus 2
-            { "SGH-I667", new CanonicalPhoneName() { CanonicalModel = "Focus 2" } },
+            { "SGH-I667", new CanonicalPhoneName(7) { CanonicalModel = "Focus 2", ScreenSize = 4 } },
 
             // Focus Flash
-            { "SGH-I677", new CanonicalPhoneName() { CanonicalModel = "Focus Flash" } },
+            { "SGH-I677", new CanonicalPhoneName(7) { CanonicalModel = "Focus Flash", ScreenSize = 3.7 } },
 
             // Focus S
-            { "HADEN", new CanonicalPhoneName() { CanonicalModel = "Focus S" } },
-            { "SGH-I937", new CanonicalPhoneName() { CanonicalModel = "Focus S" } },
+            { "HADEN", new CanonicalPhoneName(7) { CanonicalModel = "Focus S", ScreenSize = 4.3 } },
+            { "SGH-I937", new CanonicalPhoneName(7) { CanonicalModel = "Focus S", ScreenSize = 4.3 } },
 
             // ATIV S
-            { "GT-I8750", new CanonicalPhoneName() { CanonicalModel = "ATIV S" } },
-            { "SGH-T899M", new CanonicalPhoneName() { CanonicalModel = "ATIV S" } },
+            { "GT-I8750", new CanonicalPhoneName(8) { CanonicalModel = "ATIV S", ScreenSize = 4.8, ScreenResolution = ScreenResolution._720p} },
+            { "SGH-T899M", new CanonicalPhoneName(8) { CanonicalModel = "ATIV S", ScreenSize = 4.8, ScreenResolution = ScreenResolution._720p } },
 
             // ATIV Odyssey
-            { "SCH-I930", new CanonicalPhoneName() { CanonicalModel = "ATIV Odyssey" } },
-            { "SCH-R860U", new CanonicalPhoneName() { CanonicalModel = "ATIV Odyssey", Comments="US Cellular" } },
+            { "SCH-I930", new CanonicalPhoneName(8) { CanonicalModel = "ATIV Odyssey", ScreenSize = 4 } },
+            { "SCH-R860U", new CanonicalPhoneName(8) { CanonicalModel = "ATIV Odyssey", ScreenSize = 4, Comments = "US Cellular" } },
         };
 
         private static Dictionary<string, CanonicalPhoneName> htcLookupTable = new Dictionary<string, CanonicalPhoneName>()
         {
             // Surround
-            { "7 MONDRIAN T8788", new CanonicalPhoneName() { CanonicalModel = "Surround" } },
-            { "T8788", new CanonicalPhoneName() { CanonicalModel = "Surround" } },
-            { "SURROUND", new CanonicalPhoneName() { CanonicalModel = "Surround" } },
-            { "SURROUND T8788", new CanonicalPhoneName() { CanonicalModel = "Surround" } },
+            { "7 MONDRIAN T8788", new CanonicalPhoneName(7) { CanonicalModel = "Surround", ScreenSize = 3.8} },
+            { "T8788", new CanonicalPhoneName(7) { CanonicalModel = "Surround", ScreenSize = 3.8 } },
+            { "SURROUND", new CanonicalPhoneName(7) { CanonicalModel = "Surround", ScreenSize = 3.8 } },
+            { "SURROUND T8788", new CanonicalPhoneName(7) { CanonicalModel = "Surround", ScreenSize = 3.8 } },
 
             // Mozart
-            { "7 MOZART", new CanonicalPhoneName() { CanonicalModel = "Mozart" } },
-            { "7 MOZART T8698", new CanonicalPhoneName() { CanonicalModel = "Mozart" } },
-            { "HTC MOZART", new CanonicalPhoneName() { CanonicalModel = "Mozart" } },
-            { "MERSAD 7 MOZART T8698", new CanonicalPhoneName() { CanonicalModel = "Mozart" } },
-            { "MOZART", new CanonicalPhoneName() { CanonicalModel = "Mozart" } },
-            { "MOZART T8698", new CanonicalPhoneName() { CanonicalModel = "Mozart" } },
-            { "PD67100", new CanonicalPhoneName() { CanonicalModel = "Mozart" } },
-            { "T8697", new CanonicalPhoneName() { CanonicalModel = "Mozart" } },
+            { "7 MOZART", new CanonicalPhoneName(7) { CanonicalModel = "Mozart", ScreenSize = 3.7 } },
+            { "7 MOZART T8698", new CanonicalPhoneName(7) { CanonicalModel = "Mozart", ScreenSize = 3.7 } },
+            { "HTC MOZART", new CanonicalPhoneName(7) { CanonicalModel = "Mozart", ScreenSize = 3.7 } },
+            { "MERSAD 7 MOZART T8698", new CanonicalPhoneName(7) { CanonicalModel = "Mozart", ScreenSize = 3.7 } },
+            { "MOZART", new CanonicalPhoneName(7) { CanonicalModel = "Mozart", ScreenSize = 3.7 } },
+            { "MOZART T8698", new CanonicalPhoneName(7) { CanonicalModel = "Mozart", ScreenSize = 3.7 } },
+            { "PD67100", new CanonicalPhoneName(7) { CanonicalModel = "Mozart", ScreenSize = 3.7 } },
+            { "T8697", new CanonicalPhoneName(7) { CanonicalModel = "Mozart", ScreenSize = 3.7 } },
 
             // Pro
-            { "7 PRO T7576", new CanonicalPhoneName() { CanonicalModel = "7 Pro" } },
-            { "MWP6885", new CanonicalPhoneName() { CanonicalModel = "7 Pro" } },
-            { "USCCHTC-PC93100", new CanonicalPhoneName() { CanonicalModel = "7 Pro" } },
+            { "7 PRO T7576", new CanonicalPhoneName(7) { CanonicalModel = "7 Pro", ScreenSize = 3.6 } },
+            { "MWP6885", new CanonicalPhoneName(7) { CanonicalModel = "7 Pro", ScreenSize = 3.6 } },
+            { "USCCHTC-PC93100", new CanonicalPhoneName(7) { CanonicalModel = "7 Pro", ScreenSize = 3.6 } },
 
             // Arrive
-            { "PC93100", new CanonicalPhoneName() { CanonicalModel = "Arrive", Comments = "Sprint" } },
-            { "T7575", new CanonicalPhoneName() { CanonicalModel = "Arrive", Comments = "Sprint" } },
+            { "PC93100", new CanonicalPhoneName(7) { CanonicalModel = "Arrive", ScreenSize = 3.6, Comments = "Sprint" } },
+            { "T7575", new CanonicalPhoneName(7) { CanonicalModel = "Arrive", ScreenSize = 3.6, Comments = "Sprint" } },
 
             // HD2
-            { "HD2", new CanonicalPhoneName() { CanonicalModel = "HD2" } },
-            { "HD2 LEO", new CanonicalPhoneName() { CanonicalModel = "HD2" } },
-            { "LEO", new CanonicalPhoneName() { CanonicalModel = "HD2" } },
+            { "HD2", new CanonicalPhoneName(6) { CanonicalModel = "HD2", ScreenSize = 4.3 } },
+            { "HD2 LEO", new CanonicalPhoneName(6) { CanonicalModel = "HD2", ScreenSize = 4.3 } },
+            { "LEO", new CanonicalPhoneName(6) { CanonicalModel = "HD2", ScreenSize = 4.3 } },
 
             // HD7
-            { "7 SCHUBERT T9292", new CanonicalPhoneName() { CanonicalModel = "HD7" } },
-            { "GOLD", new CanonicalPhoneName() { CanonicalModel = "HD7" } },
-            { "HD7", new CanonicalPhoneName() { CanonicalModel = "HD7" } },
-            { "HD7 T9292", new CanonicalPhoneName() { CanonicalModel = "HD7" } },
-            { "MONDRIAN", new CanonicalPhoneName() { CanonicalModel = "HD7" } },
-            { "SCHUBERT", new CanonicalPhoneName() { CanonicalModel = "HD7" } },
-            { "Schubert T9292", new CanonicalPhoneName() { CanonicalModel = "HD7" } },
-            { "T9296", new CanonicalPhoneName() { CanonicalModel = "HD7", Comments = "Telstra, AU" } },
-            { "TOUCH-IT HD7", new CanonicalPhoneName() { CanonicalModel = "HD7" } },
+            { "7 SCHUBERT T9292", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3 } },
+            { "GOLD", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3 } },
+            { "HD7", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3 } },
+            { "HD7 T9292", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3 } },
+            { "MONDRIAN", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3 } },
+            { "SCHUBERT", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3 } },
+            { "Schubert T9292", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3 } },
+            { "T9296", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3, Comments = "Telstra, AU" } },
+            { "TOUCH-IT HD7", new CanonicalPhoneName(7) { CanonicalModel = "HD7", ScreenSize = 4.3 } },
 
             // HD7S
-            { "T9295", new CanonicalPhoneName() { CanonicalModel = "HD7S" } },
+            { "T9295", new CanonicalPhoneName(7) { CanonicalModel = "HD7S", ScreenSize = 4.3 } },
 
             // Trophy
-            { "7 TROPHY", new CanonicalPhoneName() { CanonicalModel = "Trophy" } },
-            { "7 TROPHY T8686", new CanonicalPhoneName() { CanonicalModel = "Trophy" } },
-            { "PC40100", new CanonicalPhoneName() { CanonicalModel = "Trophy", Comments = "Verizon" } },
-            { "SPARK", new CanonicalPhoneName() { CanonicalModel = "Trophy" } },
-            { "TOUCH-IT TROPHY", new CanonicalPhoneName() { CanonicalModel = "Trophy" } },
-            { "MWP6985", new CanonicalPhoneName() { CanonicalModel = "Trophy" } },
+            { "7 TROPHY", new CanonicalPhoneName(7) { CanonicalModel = "Trophy", ScreenSize = 3.8 } },
+            { "7 TROPHY T8686", new CanonicalPhoneName(7) { CanonicalModel = "Trophy", ScreenSize = 3.8 } },
+            { "PC40100", new CanonicalPhoneName(7) { CanonicalModel = "Trophy", ScreenSize = 3.8, Comments = "Verizon" } },
+            { "SPARK", new CanonicalPhoneName(7) { CanonicalModel = "Trophy", ScreenSize = 3.8 } },
+            { "TOUCH-IT TROPHY", new CanonicalPhoneName(7) { CanonicalModel = "Trophy", ScreenSize = 3.8 } },
+            { "MWP6985", new CanonicalPhoneName(7) { CanonicalModel = "Trophy", ScreenSize = 3.8 } },
 
             // 8S
-            { "A620", new CanonicalPhoneName() { CanonicalModel = "8S" } },
-            { "WINDOWS PHONE 8S BY HTC", new CanonicalPhoneName() { CanonicalModel = "8S" } },
+            { "A620", new CanonicalPhoneName(8) { CanonicalModel = "8S", ScreenSize = 4 } },
+            { "WINDOWS PHONE 8S BY HTC", new CanonicalPhoneName(8) { CanonicalModel = "8S", ScreenSize = 4 } },
 
             // 8X
-            { "C620", new CanonicalPhoneName() { CanonicalModel = "8X" } },
-            { "C625", new CanonicalPhoneName() { CanonicalModel = "8X" } },
-            { "HTC6990LVW", new CanonicalPhoneName() { CanonicalModel = "8X", Comments="Verizon" } },
-            { "PM23300", new CanonicalPhoneName() { CanonicalModel = "8X", Comments="AT&T" } },
-            { "WINDOWS PHONE 8X BY HTC", new CanonicalPhoneName() { CanonicalModel = "8X" } },
+            { "C620", new CanonicalPhoneName(8) { CanonicalModel = "8X", ScreenSize = 4.3, ScreenResolution = ScreenResolution._720p} },
+            { "C625", new CanonicalPhoneName(8) { CanonicalModel = "8X", ScreenSize = 4.3, ScreenResolution = ScreenResolution._720p } },
+            { "HTC6990LVW", new CanonicalPhoneName(8) { CanonicalModel = "8X", ScreenSize = 4.3, ScreenResolution = ScreenResolution._720p, Comments="Verizon" } },
+            { "PM23300", new CanonicalPhoneName(8) { CanonicalModel = "8X", ScreenSize = 4.3, ScreenResolution = ScreenResolution._720p, Comments="AT&T" } },
+            { "WINDOWS PHONE 8X BY HTC", new CanonicalPhoneName(8) { CanonicalModel = "8X", ScreenSize = 4.3, ScreenResolution = ScreenResolution._720p } },
 
             // 8XT
-            { "HTCPO881 SPRINT", new CanonicalPhoneName() { CanonicalModel = "8XT", Comments="Sprint" } },
+            { "HTCPO881 SPRINT", new CanonicalPhoneName(8) { CanonicalModel = "8XT", ScreenSize = 4.3, Comments="Sprint" } },
 
             // Titan
-            { "ETERNITY", new CanonicalPhoneName() { CanonicalModel = "Titan", Comments = "China" } },
-            { "PI39100", new CanonicalPhoneName() { CanonicalModel = "Titan", Comments = "AT&T" } },
-            { "TITAN X310E", new CanonicalPhoneName() { CanonicalModel = "Titan" } },
-            { "ULTIMATE", new CanonicalPhoneName() { CanonicalModel = "Titan" } },
-            { "X310E", new CanonicalPhoneName() { CanonicalModel = "Titan" } },
-            { "X310E TITAN", new CanonicalPhoneName() { CanonicalModel = "Titan" } },
+            { "ETERNITY", new CanonicalPhoneName(7) { CanonicalModel = "Titan", ScreenSize = 4.7, Comments = "China" } },
+            { "PI39100", new CanonicalPhoneName(7) { CanonicalModel = "Titan", ScreenSize = 4.7, Comments = "AT&T" } },
+            { "TITAN X310E", new CanonicalPhoneName(7) { CanonicalModel = "Titan", ScreenSize = 4.7 } },
+            { "ULTIMATE", new CanonicalPhoneName(7) { CanonicalModel = "Titan", ScreenSize = 4.7 } },
+            { "X310E", new CanonicalPhoneName(7) { CanonicalModel = "Titan", ScreenSize = 4.7 } },
+            { "X310E TITAN", new CanonicalPhoneName(7) { CanonicalModel = "Titan", ScreenSize = 4.7 } },
             
             // Titan II
-            { "PI86100", new CanonicalPhoneName() { CanonicalModel = "Titan II", Comments = "AT&T" } },
-            { "RADIANT", new CanonicalPhoneName() { CanonicalModel = "Titan II" } },
+            { "PI86100", new CanonicalPhoneName(7) { CanonicalModel = "Titan II", ScreenSize = 4.7, Comments = "AT&T" } },
+            { "RADIANT", new CanonicalPhoneName(7) { CanonicalModel = "Titan II", ScreenSize = 4.7 } },
 
             // Radar
-            { "RADAR", new CanonicalPhoneName() { CanonicalModel = "Radar" } },
-            { "RADAR 4G", new CanonicalPhoneName() { CanonicalModel = "Radar", Comments = "T-Mobile USA" } },
-            { "RADAR C110E", new CanonicalPhoneName() { CanonicalModel = "Radar" } },
+            { "RADAR", new CanonicalPhoneName(7) { CanonicalModel = "Radar", ScreenSize = 3.8 } },
+            { "RADAR 4G", new CanonicalPhoneName(7) { CanonicalModel = "Radar", ScreenSize = 3.8, Comments = "T-Mobile USA" } },
+            { "RADAR C110E", new CanonicalPhoneName(7) { CanonicalModel = "Radar", ScreenSize = 3.8 } },
             
         };
 
         private static Dictionary<string, CanonicalPhoneName> nokiaLookupTable = new Dictionary<string, CanonicalPhoneName>()
         {
             // Lumia 505
-            { "LUMIA 505", new CanonicalPhoneName() { CanonicalModel = "Lumia 505" } },
+            { "LUMIA 505", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 505", ScreenSize = 3.7 } },
             // Lumia 510
-            { "LUMIA 510", new CanonicalPhoneName() { CanonicalModel = "Lumia 510" } },
-            { "NOKIA 510", new CanonicalPhoneName() { CanonicalModel = "Lumia 510" } },
+            { "LUMIA 510", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 510", ScreenSize = 4 } },
+            { "NOKIA 510", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 510", ScreenSize = 4 } },
             // Lumia 610
-            { "LUMIA 610", new CanonicalPhoneName() { CanonicalModel = "Lumia 610" } },
-            { "LUMIA 610 NFC", new CanonicalPhoneName() { CanonicalModel = "Lumia 610", Comments = "NFC" } },
-            { "NOKIA 610", new CanonicalPhoneName() { CanonicalModel = "Lumia 610" } },
-            { "NOKIA 610C", new CanonicalPhoneName() { CanonicalModel = "Lumia 610" } },
+            { "LUMIA 610", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 610", ScreenSize = 3.7 } },
+            { "LUMIA 610 NFC", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 610", ScreenSize = 3.7, Comments = "NFC" } },
+            { "NOKIA 610", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 610", ScreenSize = 3.7 } },
+            { "NOKIA 610C", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 610", ScreenSize = 3.7 } },
             // Lumia 620
-            { "LUMIA 620", new CanonicalPhoneName() { CanonicalModel = "Lumia 620" } },
-            { "RM-846", new CanonicalPhoneName() { CanonicalModel = "Lumia 620" } },
+            { "LUMIA 620", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 620", ScreenSize = 3.8 } },
+            { "RM-846", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 620", ScreenSize = 3.8 } },
             // Lumia 710
-            { "LUMIA 710", new CanonicalPhoneName() { CanonicalModel = "Lumia 710" } },
-            { "NOKIA 710", new CanonicalPhoneName() { CanonicalModel = "Lumia 710" } },
+            { "LUMIA 710", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 710", ScreenSize = 3.7 } },
+            { "NOKIA 710", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 710", ScreenSize = 3.7 } },
             // Lumia 800
-            { "LUMIA 800", new CanonicalPhoneName() { CanonicalModel = "Lumia 800" } },
-            { "LUMIA 800C", new CanonicalPhoneName() { CanonicalModel = "Lumia 800" } },
-            { "NOKIA 800", new CanonicalPhoneName() { CanonicalModel = "Lumia 800" } },
-            { "NOKIA 800C", new CanonicalPhoneName() { CanonicalModel = "Lumia 800", Comments = "China" } },
+            { "LUMIA 800", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 800", ScreenSize = 3.7 } },
+            { "LUMIA 800C", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 800", ScreenSize = 3.7 } },
+            { "NOKIA 800", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 800", ScreenSize = 3.7 } },
+            { "NOKIA 800C", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 800", ScreenSize = 3.7, Comments = "China" } },
             // Lumia 810
-            { "RM-878", new CanonicalPhoneName() { CanonicalModel = "Lumia 810" } },
+            { "RM-878", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 810", ScreenSize = 4.3 } },
             // Lumia 820
-            { "RM-824", new CanonicalPhoneName() { CanonicalModel = "Lumia 820" } },
-            { "RM-825", new CanonicalPhoneName() { CanonicalModel = "Lumia 820" } },
-            { "RM-826", new CanonicalPhoneName() { CanonicalModel = "Lumia 820" } },
+            { "RM-824", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 820", ScreenSize = 4.3 } },
+            { "RM-825", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 820", ScreenSize = 4.3 } },
+            { "RM-826", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 820", ScreenSize = 4.3 } },
             // Lumia 822
-            { "RM-845", new CanonicalPhoneName() { CanonicalModel = "Lumia 822", Comments = "Verizon" } },
+            { "RM-845", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 822", ScreenSize = 3.7, Comments = "Verizon" } },
             // Lumia 900
-            { "LUMIA 900", new CanonicalPhoneName() { CanonicalModel = "Lumia 900" } },
-            { "NOKIA 900", new CanonicalPhoneName() { CanonicalModel = "Lumia 900" } },
+            { "LUMIA 900", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 900", ScreenSize = 3.7 } },
+            { "NOKIA 900", new CanonicalPhoneName(7) { CanonicalModel = "Lumia 900", ScreenSize = 3.7 } },
             // Lumia 920
-            { "RM-820", new CanonicalPhoneName() { CanonicalModel = "Lumia 920" } },
-            { "RM-821", new CanonicalPhoneName() { CanonicalModel = "Lumia 920" } },
-            { "RM-822", new CanonicalPhoneName() { CanonicalModel = "Lumia 920" } },
-            { "RM-867", new CanonicalPhoneName() { CanonicalModel = "Lumia 920", Comments = "920T" } },
-            { "NOKIA 920", new CanonicalPhoneName() { CanonicalModel = "Lumia 920" } },
-            { "LUMIA 920", new CanonicalPhoneName() { CanonicalModel = "Lumia 920" } },
+            { "RM-820", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 920", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
+            { "RM-821", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 920", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
+            { "RM-822", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 920", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
+            { "RM-867", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 920", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA, Comments = "920T" } },
+            { "NOKIA 920", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 920", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
+            { "LUMIA 920", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 920", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
             // Lumia 520
-            { "RM-914", new CanonicalPhoneName() { CanonicalModel = "Lumia 520" } },
-            { "RM-915", new CanonicalPhoneName() { CanonicalModel = "Lumia 520" } },
-            { "RM-913", new CanonicalPhoneName() { CanonicalModel = "Lumia 520", Comments="520T" } },
+            { "RM-914", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 520", ScreenSize = 4 } },
+            { "RM-915", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 520", ScreenSize = 4 } },
+            { "RM-913", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 520", ScreenSize = 4, Comments="520T" } },
             // Lumia 521?
-            { "RM-917", new CanonicalPhoneName() { CanonicalModel = "Lumia 521", Comments="T-Mobile 520" } },
+            { "RM-917", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 521", ScreenSize = 4, Comments="T-Mobile 520" } },
             // Lumia 720
-            { "RM-885", new CanonicalPhoneName() { CanonicalModel = "Lumia 720" } },
-            { "RM-887", new CanonicalPhoneName() { CanonicalModel = "Lumia 720", Comments="China 720T" } },
+            { "RM-885", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 720", ScreenSize = 4.3 } },
+            { "RM-887", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 720", ScreenSize = 4.3, Comments="China 720T" } },
             // Lumia 928
-            { "RM-860", new CanonicalPhoneName() { CanonicalModel = "Lumia 928" } },
+            { "RM-860", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 928", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
             // Lumia 925
-            { "RM-892", new CanonicalPhoneName() { CanonicalModel = "Lumia 925" } },
-            { "RM-893", new CanonicalPhoneName() { CanonicalModel = "Lumia 925" } },
-            { "RM-910", new CanonicalPhoneName() { CanonicalModel = "Lumia 925", Comments="China 925T" } },
+            { "RM-892", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 925", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
+            { "RM-893", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 925", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
+            { "RM-910", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 925", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA, Comments="China 925T" } },
             // Lumia 1020
-            { "RM-875", new CanonicalPhoneName() { CanonicalModel = "Lumia 1020" } },
-            { "RM-876", new CanonicalPhoneName() { CanonicalModel = "Lumia 1020" } },
-            { "RM-877", new CanonicalPhoneName() { CanonicalModel = "Lumia 1020" } },
+            { "RM-875", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 1020", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
+            { "RM-876", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 1020", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
+            { "RM-877", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 1020", ScreenSize = 4.5, ScreenResolution = ScreenResolution.WXGA } },
             // Lumia 625
-            { "RM-941", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
-            { "RM-942", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
-            { "RM-943", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
+            { "RM-941", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 625", ScreenSize = 4.7 } },
+            { "RM-942", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 625", ScreenSize = 4.7 } },
+            { "RM-943", new CanonicalPhoneName(8) { CanonicalModel = "Lumia 625", ScreenSize = 4.7 } },
         };
     }
 
@@ -399,11 +393,26 @@ namespace Ailon.WP.Utils
         public string CanonicalModel { get; set; }
         public string Comments { get; set; }
         public bool IsResolved { get; set; }
+        public double ScreenSize { get; set; }
+        public int OSVersion { get; set; }
+        public ScreenResolution ScreenResolution { get; set; }
 
         public string FullCanonicalName
         {
             get { return CanonicalManufacturer + " " + CanonicalModel; }
         }
-    }
 
+        public CanonicalPhoneName()
+        {
+        }
+
+        public CanonicalPhoneName(int osVersion)
+        {
+            OSVersion = osVersion;
+
+            // all windows phone 7 devices have the same resolution
+            // we will also default WP8 devices to the same resolution
+            ScreenResolution = ScreenResolution.WVGA;
+        }
+    }
 }
