@@ -448,6 +448,11 @@ namespace Ailon.WP.Utils
             { "RM-941", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
             { "RM-942", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
             { "RM-943", new CanonicalPhoneName() { CanonicalModel = "Lumia 625" } },
+            // Lumia 1520
+            { "RM-937", new CanonicalPhoneName() { CanonicalModel = "Lumia 1520" } },
+            { "RM-938", new CanonicalPhoneName() { CanonicalModel = "Lumia 1520", Comments="AT&T" } },
+            { "RM-940", new CanonicalPhoneName() { CanonicalModel = "Lumia 1520", Comments="AT&T" } },
+
         };
     }
 
