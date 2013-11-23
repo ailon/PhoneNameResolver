@@ -29,6 +29,8 @@ namespace Ailon.WP.Utils
                     return ResolveSamsung(manufacturer, model);
                 case "LG":
                     return ResolveLg(manufacturer, model);
+                case "HUAWEI":
+                    return ResolveHuawei(manufacturer, model);
                 default:
                     return new CanonicalPhoneName()
                     {
@@ -41,6 +43,52 @@ namespace Ailon.WP.Utils
 
             }
         }
+
+
+        
+        private static CanonicalPhoneName ResolveHuawei(string manufacturer, string model)
+        {
+            var modelNormalized = model.Trim().ToUpper();
+
+            var result = new CanonicalPhoneName()
+            {
+                ReportedManufacturer = manufacturer,
+                ReportedModel = model,
+                CanonicalManufacturer = "HUAWEI",
+                CanonicalModel = model,
+                IsResolved = false
+            };
+
+            
+            var lookupValue = modelNormalized;
+
+            if (lookupValue.StartsWith("HUAWEI H883G"))
+            {
+                lookupValue = "HUAWEI H883G";
+            }
+
+            if (lookupValue.StartsWith("HUAWEI W1"))
+            {
+                lookupValue = "HUAWEI W1";
+            }
+
+            if (modelNormalized.StartsWith("HUAWEI W2"))
+            {
+                lookupValue = "HUAWEI W2";
+            }
+
+            if (huaweiLookupTable.ContainsKey(lookupValue))
+            {
+                var modelMetadata = huaweiLookupTable[lookupValue];
+                    result.CanonicalModel = modelMetadata.CanonicalModel;
+                    result.Comments = modelMetadata.Comments;
+                    result.IsResolved = true;
+            }
+
+            return result;
+        }
+
+
 
         private static CanonicalPhoneName ResolveLg(string manufacturer, string model)
         {
@@ -187,6 +235,18 @@ namespace Ailon.WP.Utils
 
             return result;
         }
+
+
+        private static Dictionary<string, CanonicalPhoneName> huaweiLookupTable = new Dictionary<string, CanonicalPhoneName>()
+        {
+            // Huawei W1
+            { "HUAWEI H883G", new CanonicalPhoneName() { CanonicalModel = "Ascend W1" } },
+            { "HUAWEI W1", new CanonicalPhoneName() { CanonicalModel = "Ascend W1" } },
+            
+            // Huawei Ascend W2
+            { "HUAWEI W2", new CanonicalPhoneName() { CanonicalModel = "Ascend W2" } },
+        };
+
 
         private static Dictionary<string, CanonicalPhoneName> lgLookupTable = new Dictionary<string, CanonicalPhoneName>()
         {
