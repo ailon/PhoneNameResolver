@@ -295,6 +295,10 @@ namespace Ailon.WP.Utils
             // ATIV Odyssey
             { "SCH-I930", new CanonicalPhoneName() { CanonicalModel = "ATIV Odyssey" } },
             { "SCH-R860U", new CanonicalPhoneName() { CanonicalModel = "ATIV Odyssey", Comments="US Cellular" } },
+
+            // ATIV S Neo
+            { "SPH-I800", new CanonicalPhoneName() { CanonicalModel = "ATIV S Neo", Comments="Sprint" } },
+            { "SGH-I187", new CanonicalPhoneName() { CanonicalModel = "ATIV S Neo", Comments="AT&T" } },
         };
 
         private static Dictionary<string, CanonicalPhoneName> htcLookupTable = new Dictionary<string, CanonicalPhoneName>()
