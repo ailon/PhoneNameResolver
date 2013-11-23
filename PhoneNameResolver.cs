@@ -456,6 +456,7 @@ namespace Ailon.WP.Utils
             // Lumia 1520
             { "RM-937", new CanonicalPhoneName() { CanonicalModel = "Lumia 1520" } },
             { "RM-938", new CanonicalPhoneName() { CanonicalModel = "Lumia 1520", Comments="AT&T" } },
+            { "RM-939", new CanonicalPhoneName() { CanonicalModel = "Lumia 1520" } },
             { "RM-940", new CanonicalPhoneName() { CanonicalModel = "Lumia 1520", Comments="AT&T" } },
 
         };
