@@ -464,6 +464,8 @@ namespace Ailon.WP.Utils
             { "RM-994", new CanonicalPhoneName() { CanonicalModel = "Lumia 1320" } },
             { "RM-995", new CanonicalPhoneName() { CanonicalModel = "Lumia 1320" } },
             { "RM-996", new CanonicalPhoneName() { CanonicalModel = "Lumia 1320" } },
+            // Lumia Icon
+            { "RM-927", new CanonicalPhoneName() { CanonicalModel = "Lumia Icon", Comments="Verizon" } },
         };
     }
 
