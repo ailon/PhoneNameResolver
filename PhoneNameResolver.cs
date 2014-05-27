@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Ailon.WP.Utils
 {
@@ -222,7 +223,8 @@ namespace Ailon.WP.Utils
             var lookupValue = modelNormalized;
             if (modelNormalized.StartsWith("RM-"))
             {
-                lookupValue = modelNormalized.Substring(0, 6);
+                var rms = Regex.Match(modelNormalized, "(RM-)([0-9]+)");
+                lookupValue = rms.Value;
             }
 
             if (nokiaLookupTable.ContainsKey(lookupValue))
@@ -467,6 +469,20 @@ namespace Ailon.WP.Utils
             { "RM-996", new CanonicalPhoneName() { CanonicalModel = "Lumia 1320" } },
             // Lumia Icon
             { "RM-927", new CanonicalPhoneName() { CanonicalModel = "Lumia Icon", Comments="Verizon" } },
+            // Lumia 630
+            { "RM-976", new CanonicalPhoneName() { CanonicalModel = "Lumia 630" } },
+            { "RM-977", new CanonicalPhoneName() { CanonicalModel = "Lumia 630" } },
+            { "RM-978", new CanonicalPhoneName() { CanonicalModel = "Lumia 630" } },
+            { "RM-979", new CanonicalPhoneName() { CanonicalModel = "Lumia 630" } },
+            // Lumia 635
+            { "RM-974", new CanonicalPhoneName() { CanonicalModel = "Lumia 635" } },
+            { "RM-975", new CanonicalPhoneName() { CanonicalModel = "Lumia 635" } },
+            // Lumia 526
+            { "RM-997", new CanonicalPhoneName() { CanonicalModel = "Lumia 526", Comments="China Mobile" } },
+            // Lumia 930
+            { "RM-1045", new CanonicalPhoneName() { CanonicalModel = "Lumia 930" } },
+            // Lumia 636
+            { "RM-1010", new CanonicalPhoneName() { CanonicalModel = "Lumia 636", Comments="China" } },
         };
     }
 
