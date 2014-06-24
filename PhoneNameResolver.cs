@@ -193,7 +193,7 @@ namespace Ailon.WP.Utils
 
             if (lookupValue.StartsWith("C620"))
             {
-                lookupValue = "C625";
+                lookupValue = "C620";
             }
 
             if (htcLookupTable.ContainsKey(lookupValue))
