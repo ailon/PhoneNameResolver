@@ -392,7 +392,9 @@ namespace Ailon.WP.Utils
             { "RADAR 4G", new CanonicalPhoneName() { CanonicalModel = "Radar", Comments = "T-Mobile USA" } },
             { "RADAR C110E", new CanonicalPhoneName() { CanonicalModel = "Radar" } },
             
-        };
+            // One M8
+            { "HTC6995LVW", new CanonicalPhoneName() { CanonicalModel = "One M8", Comments="Verizon" } },
+};
 
         private static Dictionary<string, CanonicalPhoneName> nokiaLookupTable = new Dictionary<string, CanonicalPhoneName>()
         {
@@ -485,7 +487,14 @@ namespace Ailon.WP.Utils
             // Lumia 930
             { "RM-1045", new CanonicalPhoneName() { CanonicalModel = "Lumia 930" } },
             // Lumia 636
-            { "RM-1010", new CanonicalPhoneName() { CanonicalModel = "Lumia 636/638", Comments="China" } },
+            { "RM-1027", new CanonicalPhoneName() { CanonicalModel = "Lumia 636", Comments="China" } },
+            // Lumia 638
+            { "RM-1010", new CanonicalPhoneName() { CanonicalModel = "Lumia 638", Comments="China" } },
+            // Lumia 530
+            { "RM-1017", new CanonicalPhoneName() { CanonicalModel = "Lumia 530", Comments="Single SIM" } },
+            { "RM-1018", new CanonicalPhoneName() { CanonicalModel = "Lumia 530", Comments="Single SIM" } },
+            { "RM-1019", new CanonicalPhoneName() { CanonicalModel = "Lumia 530", Comments="Dual SIM" } },
+            { "RM-1020", new CanonicalPhoneName() { CanonicalModel = "Lumia 530", Comments="Dual SIM" } },
         };
     }
 
