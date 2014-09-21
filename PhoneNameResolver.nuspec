@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PhoneNameResolver</id>
+    <version>1.0.0</version>
+    <title>PhoneNameResolver</title>
+    <authors>Alan Mendelevich</authors>
+    <owners></owners>
+    <description>
+      PhoneNameResolver for Windows Phone
+    </description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+      PhoneNameResolver for Windows Phone
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/ailon/PhoneNameResolver</projectUrl>    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/ailon/PhoneNameResolver/master/license.txt</licenseUrl>
+    <copyright>Copyright 2014</copyright>
+    <dependencies>
+    </dependencies>
+    <references></references>
+    <tags></tags>
+  </metadata>
+  <files>
+    <file src="PhoneNameResolver.dll" target="lib\wp8\PhoneNameResolver.dll" />
+    <file src="PhoneNameResolver.pdb" target="lib\wp8\PhoneNameResolver.pdb" />
+  </files>
+</package>
