@@ -5,7 +5,7 @@
     <version>1.0.0</version>
     <title>PhoneNameResolver</title>
     <authors>Alan Mendelevich</authors>
-    <owners></owners>
+    <owners>Igor Kulman</owners>
     <description>
       PhoneNameResolver for Windows Phone
     </description>
