@@ -515,6 +515,7 @@ namespace Ailon.WP.Utils
             { "RM-1089", new CanonicalPhoneName() { CanonicalModel = "Lumia 535" } },
             { "RM-1090", new CanonicalPhoneName() { CanonicalModel = "Lumia 535" } },
             { "RM-1091", new CanonicalPhoneName() { CanonicalModel = "Lumia 535" } },
+            { "RM-1092", new CanonicalPhoneName() { CanonicalModel = "Lumia 535" } },
         };
     }
 
