@@ -23,6 +23,7 @@ namespace Ailon.WP.Utils
             switch (manufacturerNormalized)
             {
                 case "NOKIA":
+                case "MICROSOFT":
                     return ResolveNokia(manufacturer, model);
                 case "HTC":
                     return ResolveHtc(manufacturer, model);
