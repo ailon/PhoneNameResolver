@@ -398,7 +398,7 @@ namespace Ailon.WP.Utils
             // One M8
             { "HTC6995LVW", new CanonicalPhoneName() { CanonicalModel = "One (M8)", Comments="Verizon" } },
             { "0P6B180", new CanonicalPhoneName() { CanonicalModel = "One (M8)", Comments="AT&T" } },
-            
+            { "0P6B140", new CanonicalPhoneName() { CanonicalModel = "One (M8)", Comments="Dual SIM?" } },
 };
 
         private static Dictionary<string, CanonicalPhoneName> nokiaLookupTable = new Dictionary<string, CanonicalPhoneName>()
