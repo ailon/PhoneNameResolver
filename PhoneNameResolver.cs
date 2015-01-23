@@ -216,7 +216,7 @@ namespace Ailon.WP.Utils
             {
                 ReportedManufacturer = manufacturer,
                 ReportedModel = model,
-                CanonicalManufacturer = "MICROSOFT",
+                CanonicalManufacturer = "NOKIA",
                 CanonicalModel = model,
                 IsResolved = false
             };
@@ -231,9 +231,14 @@ namespace Ailon.WP.Utils
             if (nokiaLookupTable.ContainsKey(lookupValue))
             {
                 var modelMetadata = nokiaLookupTable[lookupValue];
-                    result.CanonicalModel = modelMetadata.CanonicalModel;
-                    result.Comments = modelMetadata.Comments;
-                    result.IsResolved = true;
+
+                if (!string.IsNullOrEmpty(modelMetadata.CanonicalManufacturer))
+                {
+                    result.CanonicalManufacturer = modelMetadata.CanonicalManufacturer;
+                }
+                result.CanonicalModel = modelMetadata.CanonicalModel;
+                result.Comments = modelMetadata.Comments;
+                result.IsResolved = true;
             }
 
             return result;
@@ -514,10 +519,10 @@ namespace Ailon.WP.Utils
             { "RM-985", new CanonicalPhoneName() { CanonicalModel = "Lumia 830" } },
             { "RM-1049", new CanonicalPhoneName() { CanonicalModel = "Lumia 830" } },
             // Lumia 535
-            { "RM-1089", new CanonicalPhoneName() { CanonicalModel = "Lumia 535" } },
-            { "RM-1090", new CanonicalPhoneName() { CanonicalModel = "Lumia 535" } },
-            { "RM-1091", new CanonicalPhoneName() { CanonicalModel = "Lumia 535" } },
-            { "RM-1092", new CanonicalPhoneName() { CanonicalModel = "Lumia 535" } },
+            { "RM-1089", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 535" } },
+            { "RM-1090", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 535" } },
+            { "RM-1091", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 535" } },
+            { "RM-1092", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 535" } },
         };
     }
 
