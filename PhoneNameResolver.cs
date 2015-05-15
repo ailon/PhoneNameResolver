@@ -533,6 +533,7 @@ namespace Ailon.WP.Utils
             { "RM-1031", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 532", Comments="DS" } },
             { "RM-1032", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 532", Comments="DS" } },
             { "RM-1034", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 532", Comments="DS" } },
+            { "RM-1115", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 532", Comments="DS" } },
             // Lumia 640
             { "RM-1072", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640" } },
             { "RM-1073", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640" } },
@@ -544,12 +545,15 @@ namespace Ailon.WP.Utils
             // Lumia 640XL
             { "RM-1062", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640 XL" } },
             { "RM-1063", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640 XL" } },
+            { "RM-1064", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640 XL" } },
             { "RM-1065", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640 XL" } },
             { "RM-1066", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640 XL" } },
             { "RM-1067", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640 XL" } },
             { "RM-1096", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 640 XL" } },
             // Lumia 540
             { "RM-1141", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 540" } },
+            // Lumia 430 
+            { "RM-1099", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 430", Comments="DS" } },
         };
     }
 
