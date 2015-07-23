@@ -266,6 +266,9 @@ namespace Ailon.WP.Utils
 
             // Jil Sander
             { "LG-E906", new CanonicalPhoneName() { CanonicalModel = "Jil Sander" } },
+
+            // Lancet
+            { "LGVW820", new CanonicalPhoneName() { CanonicalModel = "Lancet" } },
         };
 
         private static Dictionary<string, CanonicalPhoneName> samsungLookupTable = new Dictionary<string, CanonicalPhoneName>()
