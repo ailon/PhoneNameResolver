@@ -24,6 +24,7 @@ namespace Ailon.WP.Utils
             {
                 case "NOKIA":
                 case "MICROSOFT":
+                case "MICROSOFTMDG":
                     return ResolveNokia(manufacturer, model);
                 case "HTC":
                     return ResolveHtc(manufacturer, model);
@@ -558,6 +559,15 @@ namespace Ailon.WP.Utils
             { "RM-1141", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 540" } },
             // Lumia 430 
             { "RM-1099", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 430", Comments="DS" } },
+            // Lumia 950
+            { "RM-1104", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 950", Comments="DS" } },
+            { "RM-1105", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 950", Comments="DS" } },
+            { "RM-1118", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 950", Comments="DS" } },
+            // Lumia 950 XL
+            { "RM-1085", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 950 XL" } },
+            { "RM-1116", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 950 XL", Comments="DS" } },
+            // Lumia 550
+            { "RM-1127", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 550" } },
         };
     }
 
