@@ -572,6 +572,7 @@ namespace Ailon.WP.Utils
             // Lumia 650
             { "RM-1150", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 650" } },
             { "RM-1152", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 650" } },
+            { "RM-1153", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 650" } },
             { "RM-1154", new CanonicalPhoneName() { CanonicalManufacturer="MICROSOFT", CanonicalModel = "Lumia 650", Comments="DS" } },
         };
     }
